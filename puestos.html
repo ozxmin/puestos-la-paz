@@ -1,0 +1,197 @@
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <link type="text/css" rel="stylesheet" href="./style.css" />
+  <script type="text/javascript" src="./gmap3.js"></script>
+
+  <body>
+    <!-- Div del Mapa -->
+    <div id="puestos" class="gmap3"></div>
+    <!-- Fin del Mapa -->
+
+    <script>
+      $(function () {
+        let burgericon = "http://maps.google.com/mapfiles/marker_orange.png";
+        let tacoIcon = "http://maps.google.com/mapfiles/marker_green.png";
+
+//================Llenar con datos diferentes=============================
+        let infoHamburguesas = [{
+            position: [24.133133, -110.340765],
+            logo: "https://static1.squarespace.com/static/57b8e28a1b631bd959b9a739/t/5831404337c581f7576b5551/1479622727668/ATT+logo+small.png",
+            icon: burgericon,
+            nombre: "Nombre de Burgers",
+            descripcion: "estos burgers estan wenos 1",
+            horario: "12:00 PM - 4:00 AM",
+            resenas: "4.4/5"
+          },
+          {
+            position: [24.142454, -110.339306],
+            logo: "https://static1.squarespace.com/static/57b8e28a1b631bd959b9a739/t/5831404337c581f7576b5551/1479622727668/ATT+logo+small.png",
+            icon: burgericon,
+            nombre: "Nombre de Burgers",
+            descripcion: "estos burgers estan wenos 1",
+            horario: "12:00 PM - 4:00 AM",
+            resenas: "4.4/5"
+          },
+          {
+            position: [24.142454, -110.317247],
+            logo: "https://static1.squarespace.com/static/57b8e28a1b631bd959b9a739/t/5831404337c581f7576b5551/1479622727668/ATT+logo+small.png",            
+            icon: burgericon,
+            nombre: "Nombre de Burgers",
+            descripcion: "estos burgers estan wenos 1",
+            horario: "12:00 PM - 4:00 AM",
+            resenas: "4.4/5"
+          },
+          {
+            position: [24.100651, -110.315732],
+            logo: "https://static1.squarespace.com/static/57b8e28a1b631bd959b9a739/t/5831404337c581f7576b5551/1479622727668/ATT+logo+small.png",            
+            icon: burgericon,
+            nombre: "Nombre de Burgers",
+            descripcion: "estos burgers estan wenos 1",
+            horario: "12:00 PM - 4:00 AM",
+            resenas: "4.4/5"
+          },
+          {
+            position: [24.126425, -110.311484],
+            logo: "https://static1.squarespace.com/static/57b8e28a1b631bd959b9a739/t/5831404337c581f7576b5551/1479622727668/ATT+logo+small.png",            
+            nombre: "Nombre de Burgers",
+            icon: burgericon,
+            descripcion: "estos burgers estan wenos 1",
+            horario: "12:00 PM - 4:00 AM",
+            resenas: "4.4/5"
+          },
+          {
+            position: [24.159999, -110.317410],
+            logo: "https://static1.squarespace.com/static/57b8e28a1b631bd959b9a739/t/5831404337c581f7576b5551/1479622727668/ATT+logo+small.png",            
+            icon: burgericon,
+            nombre: "Nombre de Burgers",
+            descripcion: "estos burgers estan wenos 1",
+            horario: "12:00 PM - 4:00 AM",
+            resenas: "4.4/5"
+          }
+        ];
+
+        let infoTacos = [{
+            position: [24.146073, -110.314400],
+            icon: tacoIcon,
+            logo: "https://static1.squarespace.com/static/57b8e28a1b631bd959b9a739/t/5831404337c581f7576b5551/1479622727668/ATT+logo+small.png",                        
+            nombre: "Nombre de Tacos",
+            descripcion: "estos tacos estan wenos 1",
+            horario: "12:00 PM - 4:00 AM",
+            resenas: "4.4/5"
+          },
+          {
+            position: [24.157118, -110.318009],
+            icon: tacoIcon,
+            nombre: "Nombre de Tacos",
+            logo: "https://static1.squarespace.com/static/57b8e28a1b631bd959b9a739/t/5831404337c581f7576b5551/1479622727668/ATT+logo+small.png",                        
+            descripcion: "estos tacos estan wenos 2",
+            horario: "12:00 PM - 4:00 AM",
+            resenas: "4.4/5"            
+          },
+          {
+            position: [24.166329, -110.311983],
+            logo: "https://static1.squarespace.com/static/57b8e28a1b631bd959b9a739/t/5831404337c581f7576b5551/1479622727668/ATT+logo+small.png",                        
+            icon: tacoIcon,
+            nombre: "Nombre de Tacos",
+            descripcion: "estos tacos estan wenos 3",
+            horario: "12:00 PM - 4:00 AM",
+            resenas: "4.4/5"
+          },
+          {
+            position: [24.144331, -110.315435],
+            icon: tacoIcon,
+            nombre: "Nombre de Tacos",
+            logo: "https://static1.squarespace.com/static/57b8e28a1b631bd959b9a739/t/5831404337c581f7576b5551/1479622727668/ATT+logo+small.png",                        
+            descripcion: "estos tacos estan wenos 4",
+            horario: "12:00 PM - 4:00 AM",
+            resenas: "4.4/5"
+          }
+        ];
+
+/////=========================================================================
+
+
+        function injectStyling(info) {
+
+          return '<div id="content">'+'<div id="siteNotice">'+'</div>'+
+                '<h1 id="firstHeading" class="firstHeading">'+info.nombre+'</h1>'+
+                "<div class=logo><img src="+info.logo+" alt=\"Smiley face\"></div>"+
+                '<div id="bodyContent"><p>'+
+                '<b>Descripción: </b>'+'<i>'+info.descripcion+'</i><br>'+
+                '<b>Horario: </b>'+'<i>'+info.horario+'</i><br>'+
+                '<b>Resenas: </b>'+'<i>'+info.resenas+'</i><br>'+
+                '</p>'+
+                '</div>'+
+                '</div>';
+        }
+
+        var mapa = $('#puestos').gmap3({
+          address: "La paz, Mexico",
+          zoom: 13,
+          mapTypeId: google.maps.MapTypeId.map,
+          mapTypeControl: true,
+
+          mapTypeControlOptions: {
+            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+          },
+          navigationControl: true,
+          scrollwheel: true,
+          streetViewControl: true
+        });
+
+        let puestos = infoTacos.concat(infoHamburguesas)
+        console.log(infoTacos);
+
+        puestos.forEach(function (element) {
+          mapa.marker({ position: element.position, icon: element.icon})
+        });
+
+        puestos.forEach(function(element) {
+          mapa.infowindow({content: injectStyling(element)});
+        })
+
+        mapa.then(function(infowindow) {
+            let map = this.get(0);
+
+            var marker1 = this.get(1)
+            var marker2 =  this.get(2)
+            var marker3 = this.get(3)
+            var marker4 =  this.get(4)
+            var marker5 =  this.get(5)
+            var marker6 =  this.get(6)
+            var marker7 =  this.get(7)
+            var marker8 =  this.get(8)
+            var marker9 =  this.get(9)
+            var marker10 =  this.get(10)
+
+            var infowindow1 = this.get(11)
+            var infowindow2 = this.get(12)
+            var infowindow3 = this.get(13)
+            var infowindow4 = this.get(14)
+            var infowindow5 = this.get(15)
+            var infowindow6 = this.get(16)
+            var infowindow7 = this.get(17)
+            var infowindow8 = this.get(18)
+            var infowindow9 = this.get(19)
+            var infowindow10 = this.get(20)            
+
+            marker1.addListener('click', function() { infowindow1.open(map, marker1)} );
+            marker2.addListener('click', function() { infowindow2.open(map, marker2)} );
+            marker3.addListener('click', function() { infowindow3.open(map, marker3)} );
+            marker4.addListener('click', function() { infowindow4.open(map, marker4)} );
+            marker5.addListener('click', function() { infowindow5.open(map, marker5)} );
+            marker6.addListener('click', function() { infowindow6.open(map, marker6)} );
+            marker7.addListener('click', function() { infowindow7.open(map, marker7)} );
+            marker8.addListener('click', function() { infowindow8.open(map, marker8)} );
+            marker9.addListener('click', function() { infowindow9.open(map, marker9)} );
+            marker10.addListener('click', function() { infowindow10.open(map, marker10)} );
+          
+          });
+      });
+    </script>
+  </body>
+
+</html>
